@@ -1,6 +1,3 @@
-
-
-
 const targetFinder = (numbers, target) => {
     // ...Hash storage for fast lookup (O(1))**
     let hashStorage = {}
@@ -32,9 +29,30 @@ const targetFinder = (numbers, target) => {
     return []
 }
 
- 
+
+const indexFinder = (numbers, target) => {
+    const hashStorage = {}
+    for(let i = 0; i < numbers.length; i++) {
+        //current number being looped over and being assigned to currentNum
+        let currentNum = numbers[i]
+        console.log(currentNum)
+        //again getting the needed number to sum to target number
+        let numberNeeded = target - currentNum
+        //getting the index of the stored number IF it is present in the hash
+        let index2 = hashStorage[numberNeeded]
+        //if the value for index2 is NOT null then it is true and runs the truthy statement.
+        if (index2 != null) {
+            return [index2, i]
+        } else {
+            //if no number can be found to equal target it is stored in the hash
+            hashStorage[currentNum] = i
+        }
+    }
+    //if no numbers = target and empty array is returned.
+    return []
+}
 
 let target = 11
 let numbers = [3, 1, 4, 99, 12, 10, 9]
 
-console.log(targetFinder(numbers, target))
+console.log(indexFinder(numbers, target))
